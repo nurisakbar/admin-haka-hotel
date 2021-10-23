@@ -1,4 +1,4 @@
-## Aplikasi Survey Layanan
+## Web untuk mengelola data haka hotel
 Deskripsi aplikasi disini
 
 ## Cara Melakukan Instalasi
