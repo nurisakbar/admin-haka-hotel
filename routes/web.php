@@ -14,12 +14,5 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
-Route::get('/', function () {
-    return redirect('login');
-});
 Auth::routes();
-Route::get('home', 'PageController@home');
-Route::resource('user', 'UserController');
-Route::resource('toko', 'TokoController');
-Route::resource('tarikdana', 'TarikDanaController');
-Route::resource('penjualan', 'PenjualanController');
+Route::get('/', 'PageController@home');

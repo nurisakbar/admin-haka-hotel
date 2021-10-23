@@ -46,23 +46,14 @@
 
 
             <?php
-    $menus['administrator'] = [
+    $menus = [
                 ['link'=>'/home','label'=>'Dashboard','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/penjualan','label'=>'Laporan Penjualan','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/user','label'=>'Data Pegawai','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/tarikdana','label'=>'Laporan Tarik Dana','icon'=>'fas fa-fw fa-tachometer-alt'],
-            ];
-
-    $menus['karyawan'] = [
-                ['link'=>'/home','label'=>'Dashboard','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/penjualan','label'=>'Laporan Penjualan','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/penjualan/create','label'=>'Input Penjualan','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/toko','label'=>'Data Toko','icon'=>'fas fa-fw fa-tachometer-alt'],
-                ['link'=>'/tarikdana','label'=>'Laporan Tarik Dana','icon'=>'fas fa-fw fa-tachometer-alt'],
+                ['link'=>'/penjualan','label'=>'Data Hotel','icon'=>'fas fa-fw fa-tachometer-alt'],
+                ['link'=>'/user','label'=>'Laporan Booking','icon'=>'fas fa-fw fa-tachometer-alt']
             ];
             ?>
 
-            @foreach ($menus[\Auth::user()->level] as $menu)
+            @foreach ($menus as $menu)
             <li class="nav-item">
                 <a class="nav-link" href="{{$menu['link']}}"><i class="{{$menu['icon']}}"></i><span>{{$menu['label']}}</span></a>
             </li>
@@ -263,7 +254,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Selamat Datang : {{Auth::user()->name}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Selamat Datang : Test user</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('sbadmin/img/undraw_profile.svg')}}">
                             </a>
