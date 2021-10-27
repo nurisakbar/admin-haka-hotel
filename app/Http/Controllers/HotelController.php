@@ -43,7 +43,7 @@ class HotelController extends Controller
      */
     public function store(HotelStoreRequest $request)
     {
-        $res = $this->client->post('http://127.0.0.1:8001/api/hotel', [
+        $res = $this->client->post(env('API_HOST') . '/hotel', [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
@@ -74,7 +74,7 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        $res = $this->client->get('http://127.0.0.1:8001/api/hotel/' . $id);
+        $res = $this->client->get(env('API_HOST') . '/hotel/' . $id);
         $result = json_decode($res->getBody()->getContents(), true);
         $data = $result['data'];
 
@@ -91,7 +91,7 @@ class HotelController extends Controller
     public function update(HotelStoreRequest $request, $id)
     {
         $request['address_tag'] = implode(',', $request->address_tag);
-        $res = $this->client->put('http://127.0.0.1:8001/api/hotel/' . $id, [
+        $res = $this->client->put(env('API_HOST') . 'hotel/' . $id, [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
@@ -110,7 +110,7 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        $res = $this->client->delete('http://127.0.0.1:8001/api/hotel/' . $id);
+        $res = $this->client->delete(env('API_HOST') . '/hotel/' . $id);
         if ($res->getStatusCode() == 200) {
             return back()->with('message', 'Hotel berhasil dihapus.');
         }

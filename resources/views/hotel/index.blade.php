@@ -33,7 +33,7 @@
         $('#hotels-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'http://127.0.0.1:8001/api/hotel?type=datatables',
+            ajax: "{{env('API_HOST')}}/hotel?type=datatables",
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'name', name: 'name' },
