@@ -91,7 +91,7 @@ class HotelController extends Controller
     public function update(HotelStoreRequest $request, $id)
     {
         $request['address_tag'] = implode(',', $request->address_tag);
-        $res = $this->client->put(env('API_HOST') . 'hotel/' . $id, [
+        $res = $this->client->put(env('API_HOST') . '/hotel/' . $id, [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
