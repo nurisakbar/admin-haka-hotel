@@ -15,4 +15,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Auth::routes();
-Route::get('/', 'PageController@home');
+Route::get('/', 'UserController@index');
+
+Route::resource('hotel', 'HotelController');
+Route::get('hotel/{id}/delete', 'HotelController@destroy');
