@@ -11,30 +11,30 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             return \DataTables::of(User::all())
-          ->addColumn('action', function ($user) {
-              $btn = \Form::open(['url' => 'user/'.$user->id, 'method' => 'DELETE','style'=>'float:right;margin-right:5px']);
-              $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-              $btn .= \Form::close();
-              $btn .='<a class="btn btn-danger btn-sm" href="/user/'.$user->id.'/edit?role='.$user->role.'"><i class="fas fa-edit" aria-hidden="true"></i></a>';
-              return $btn;
-          })
-          ->rawColumns(['action'])
-          ->addIndexColumn()
-          ->make(true);
+                ->addColumn('action', function ($user) {
+                    $btn = \Form::open(['url' => 'user/' . $user->id, 'method' => 'DELETE', 'style' => 'float:right;margin-right:5px']);
+                    $btn .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                    $btn .= \Form::close();
+                    $btn .= '<a class="btn btn-danger btn-sm" href="/user/' . $user->id . '/edit?role=' . $user->role . '"><i class="fas fa-edit" aria-hidden="true"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
         return view('user.index');
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
         $data['user']   = User::find($id);
         $data['group']  = $this->listGroup($request);
         $data['subGroup'] = Group::where('group_id', '!=', null)->pluck('nama_group', 'id');
-        $data['title']  = $request->role=='responden'?'Responden':'Object Survey';
+        $data['title']  = $request->role == 'responden' ? 'Responden' : 'Object Survey';
         return view('user.edit', $data);
     }
 
@@ -102,18 +102,18 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->all();
-        if ($request->password!=null) {
+        if ($request->password != null) {
             $data['password'] = Hash::make($request->password);
         } else {
             unset($data['password']);
         }
         $user->update($data);
-        \Session::flash('message', 'Berhasil Mengupdate Data '.$request->name);
-        $role = $request->role=='responden'?'responden':'object_survey';
+        \Session::flash('message', 'Berhasil Mengupdate Data ' . $request->name);
+        $role = $request->role == 'responden' ? 'responden' : 'object_survey';
         if ($request->has('page')) {
             return redirect('profile');
         }
-        return redirect('user?role='.$role);
+        return redirect('user?role=' . $role);
     }
 
     /**
@@ -128,17 +128,17 @@ class UserController extends Controller
         $role = $user->role;
         $user->delete();
         \Session::flash('message', 'Berhasil Menghapus Data Anggota');
-        return redirect('user?role='.$role);
+        return redirect('user?role=' . $role);
     }
 
 
     public function listGroup($request)
     {
         \Log::info($request);
-        if (Auth::user()->group=='owner') {
-            $listGroup = ['institusi'=>'institusi','owner'=>'owner'];
+        if (Auth::user()->group == 'owner') {
+            $listGroup = ['institusi' => 'institusi', 'owner' => 'owner'];
         } else {
-            if ($request->role=='responden') {
+            if ($request->role == 'responden') {
                 $group = Group::where('group_id', '=', null)->where('jenis', '!=', 'layanan');
             } else {
                 $group = Group::where('group_id', '=', null);
