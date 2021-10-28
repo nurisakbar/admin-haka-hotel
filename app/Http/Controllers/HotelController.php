@@ -43,11 +43,51 @@ class HotelController extends Controller
      */
     public function store(HotelStoreRequest $request)
     {
-        $res = $this->client->post(env('API_HOST') . '/hotel', [
-            'headers' => [
-                'Content-Type' => 'application/json'
+        ini_set('max_execution_time', 2180);
+        $files = $request->file('photos');
+
+        $path = [];
+        $filename = [];
+
+        foreach ($files as $file) {
+            array_push($path, $file->getPathName());
+            array_push($filename, $file->getClientOriginalName());
+        };
+
+        $res = $this->client->request('POST', env('API_HOST') . '/hotel', [
+            'multipart' => [
+                [
+                    'name'     => 'photos[]',
+                    'contents' => fopen($path[0], 'r'),
+                    'filename' => $filename[0]
+                ],
+                [
+                    'name'     => 'photos[]',
+                    'contents' => fopen($path[1], 'r'),
+                    'filename' => $filename[1]
+                ],
+                [
+                    'name'     => 'photos[]',
+                    'contents' => fopen($path[2], 'r'),
+                    'filename' => $filename[2]
+                ],
+                [
+                    'name'     => 'name',
+                    'contents' => $request->name,
+                ],
+                [
+                    'name'     => 'address',
+                    'contents' => $request->address,
+                ],
+                [
+                    'name'     => 'address_tag',
+                    'contents' => $request->address_tag,
+                ],
+                [
+                    'name'     => 'regency_id',
+                    'contents' => $request->regency_id,
+                ],
             ],
-            'json' => $request->all()
         ]);
 
         if ($res->getStatusCode() == 201) {
@@ -63,7 +103,14 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        //
+        $res = $this->client->get(env('API_HOST') . '/hotel/' . $id);
+
+        $result = json_decode($res->getBody()->getContents(), true);
+        $hotel = $result['data'];
+        $hotel['address_tag'] = implode(',', $hotel['address_tag']);
+        $data['hotel'] = $hotel;
+
+        return view('hotel.show', $data);
     }
 
     /**
@@ -76,9 +123,11 @@ class HotelController extends Controller
     {
         $res = $this->client->get(env('API_HOST') . '/hotel/' . $id);
         $result = json_decode($res->getBody()->getContents(), true);
-        $data = $result['data'];
+        $hotel = $result['data'];
+        $hotel['address_tag'] = implode(',', $hotel['address_tag']);
+        $data['hotel'] = $hotel;
 
-        return view('hotel.edit', compact('data'));
+        return view('hotel.edit', $data);
     }
 
     /**
@@ -90,7 +139,6 @@ class HotelController extends Controller
      */
     public function update(HotelStoreRequest $request, $id)
     {
-        $request['address_tag'] = implode(',', $request->address_tag);
         $res = $this->client->put(env('API_HOST') . '/hotel/' . $id, [
             'headers' => [
                 'Content-Type' => 'application/json'

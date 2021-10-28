@@ -17,7 +17,7 @@
                     <th>Alamat</th>
                     <th>Tag Alamat</th>
                     <th>Daerah</th>
-                    <th width="60">#</th>
+                    <th width="100">#</th>
                 </tr>
             </thead>
         </table>

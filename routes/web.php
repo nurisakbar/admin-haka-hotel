@@ -19,3 +19,6 @@ Route::get('/', 'UserController@index');
 
 Route::resource('hotel', 'HotelController');
 Route::get('hotel/{id}/delete', 'HotelController@destroy');
+
+// Route for Select2
+Route::get('select2regency', 'AjaxController@select2regency');
