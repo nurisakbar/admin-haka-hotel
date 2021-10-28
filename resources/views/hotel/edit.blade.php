@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
         @include('validation_error')
-        {!! Form::model($data,['url'=>'hotel/'.$data['id'],'method'=>'PUT']) !!}
+        {!! Form::model($hotel,['url'=>'hotel/'.$hotel['id'],'method'=>'PUT']) !!}
         @include('hotel.form')
         {!! Form::close() !!}
     </div>
