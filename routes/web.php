@@ -18,6 +18,9 @@ Auth::routes();
 Route::get('/', 'UserController@index');
 
 Route::resource('hotel', 'HotelController');
+Route::resource('facilities', 'FacilityController');
+
+Route::get('facilities/{id}/delete', 'FacilityController@destroy');
 Route::get('hotel/{id}/delete', 'HotelController@destroy');
 
 // Route for Select2
