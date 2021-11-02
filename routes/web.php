@@ -20,6 +20,16 @@ Route::get('/', 'UserController@index');
 Route::resource('hotel', 'HotelController');
 Route::resource('facilities', 'FacilityController');
 
+// Route for room type
+Route::get('roomType', 'RoomTypeController@index');
+Route::get('roomType/create', 'RoomTypeController@create');
+Route::get('hotel/{id}/roomType', 'RoomTypeController@showRoom');
+Route::get('hotel/{idHotel}/roomtype/{idRoom}', 'RoomTypeController@show');
+Route::get('hotel/{idHotel}/roomtype/{idRoom}/edit', 'RoomTypeController@edit');
+Route::put('hotel/{idHotel}/roomtype/{idRoom}', 'RoomTypeController@update');
+Route::get('hotel/{idHotel}/roomtype/{idRoom}/delete', 'RoomTypeController@destroy');
+Route::post('hotel/{id}/roomtype', 'RoomTypeController@store');
+
 Route::get('facilities/{id}/delete', 'FacilityController@destroy');
 Route::get('hotel/{id}/delete', 'HotelController@destroy');
 
