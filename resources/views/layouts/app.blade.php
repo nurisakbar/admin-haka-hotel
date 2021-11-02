@@ -49,6 +49,7 @@
             $menus = [
                 ['link'=>'/home','label'=>'Dashboard','icon'=>'fas fa-fw fa-tachometer-alt'],
                 ['link'=>'/hotel','label'=>'Data Hotel','icon'=>'fas fa-fw fa-hotel'],
+                ['link'=>'/facilities','label'=>'Data Fasilitas','icon'=>'fas fa-fw fa-hotel'],
                 ['link'=>'/user','label'=>'Laporan Booking','icon'=>'fas fa-fw fa-tachometer-alt']
             ];
             ?>
